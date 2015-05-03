@@ -22,9 +22,16 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="jam" />
+        <module name="jam-data" />
+        <module name="jam-tutorail" />
+        <module name="jam-web" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="jam" target="1.5" />
+      <module name="jam-data" target="1.5" />
+      <module name="jam-tutorail" target="1.5" />
+      <module name="jam-web" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
-

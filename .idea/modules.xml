@@ -4,8 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/jam.iml" filepath="$PROJECT_DIR$/jam.iml" />
       <module fileurl="file://$PROJECT_DIR$/jam-data/jam-data.iml" filepath="$PROJECT_DIR$/jam-data/jam-data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jam-tutorail/jam-tutorail.iml" filepath="$PROJECT_DIR$/jam-tutorail/jam-tutorail.iml" />
       <module fileurl="file://$PROJECT_DIR$/jam-web/jam-web.iml" filepath="$PROJECT_DIR$/jam-web/jam-web.iml" />
     </modules>
   </component>
 </project>
-
