@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="cn-ZH">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-COMPATIBLE" CONTENT="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Welcome</title>
+    <link rel="shortcut icon" type="image/x-icon" href=""/>
+    <!--<script src="../lib/jquery/jquery.min.js"></script>-->
+    <script src="../lib/local/util.base.js"></script>
+</head>
+<body>
+   <div style="border: solid 2px grey">
+       <input id="n1" type="text"/> <span>+</span>
+       <input id="n2" type="text"/> <span>=</span>
+       <input id="n3" type="text"/>
+       <input id="old-cal" type="button" value="运算" />
+   </div>
+
+   <div>
+       <input id="n4" type="text"/>
+       <input id="n-dou" type="button" value="double属性"/>
+       <input id="n5" type="text"/>
+
+       <br>
+       <input id="n6" type="text"/>
+       <input  id="n-squ" type="button" value="square属性"/>
+       <input id="n7" type="text"/>
+
+
+       <br>
+       <input id="n8" type="text"/>
+       <input  id="n-format" type="button" value="格式化"/>
+       <input id="n9" type="text"/>
+
+   </div>
+</body>
+<script type="text/javascript">
+     document.getElementById("old-cal").addEventListener("click", function () {
+         var n1 = document.getElementById("n1").value;
+         var n2 = document.getElementById("n2").value;
+         document.getElementById("n3").value = n1+n2;
+     });
+     document.getElementById("n-dou").addEventListener("click", function () {
+         var n4 = document.getElementById("n4").value;
+         var dc = parseInt(n4).double;
+         document.getElementById("n5").value = dc;
+     });
+     document.getElementById("n-squ").addEventListener("click", function () {
+         var n6 = document.getElementById("n6").value;
+         var dc = parseInt(n6).square;
+         document.getElementById("n7").value = dc;
+     });
+
+
+     document.getElementById("n-format").addEventListener("click", function () {
+         var n8 = document.getElementById("n8").value;
+         var dc = parseInt(n8).format();
+         document.getElementById("n9").value = dc;
+     });
+
+</script>
+</html>
