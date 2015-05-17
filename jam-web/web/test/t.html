@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>测试</title>
+</head>
+<body>
+<div>flk</div>
+
+<script type="text/javascript">
+
+    /*
+    var Sup = function (name) {
+        this.name = name;
+    }
+
+    var Sub = function (age) {
+        this.age = age;
+    }
+
+    Sub.prototype = new Sup();
+    var sub1 = new Sub();
+
+    alert(sub1.constructor);
+
+    ///////////////
+    var Person = function (name, age) {
+        this.name = name;
+        this.age = age;
+    };
+
+    //混合继承的实现
+    Person.prototype.sayName = function () {
+        alert(this.name);
+    };
+
+    var Student = function (name,age,sex) {
+        Person.call(this,name,age);
+        this.sex = sex;
+    }
+    Student.prototype = new Person();
+
+    var stu = new Student("小王",10,"男");
+    alert(stu.name);
+    alert(stu.age);
+    alert(stu.sex);
+    alert(stu.constructor);
+    stu.sayName();
+
+    */
+
+///////////////////////////////////
+
+    /**
+     * 子类继承父类的原型（不继承模板）
+     * @param sub  子类
+     * @param sup  父类
+     */
+//    var extend = function (sub, sup) {
+//         var F = new Function(); //申明一个空函数
+//         F.prototype = sup.prototype;  // 此时F的模板为空，prototype执行父类的prototype对象
+//         sub.prototype = new F();  // 这样子类的prototype就执行F的实例, F的实例的prototype就是父类的prototype对象，但是F的模板为空
+//         sub.prototype.constructor = sub;  //子类构造器在上面被改写  在这里做一下还原。
+//
+//        //至此 已经实现了只继承原型而不继承模板的功能。
+//        //但是在Student的模板里有父类Person， 需要实现解耦  所以需要继续做一些事情。
+//        sub.supClass = sup.prototype;
+//        //至此还不够，应为父类的构造器有可能被改写 所以还需要做一个判断
+//        if(sup.prototype.constructor == Object.prototype.constructor){
+//            sup.prototype.constructor = sup;
+//        }
+//    };
+//
+//    var Person = function (name, age) {
+//        this.name = name;
+//        this.age = age;
+//    };
+//    Person.prototype= {
+//        sayHello: function () {
+//            alert("Hello World");
+//        }
+//    };
+//
+//    var Student = function (name, age, sex) {
+////        Person.call(this,name,age);
+//        Student.supClass.constructor.call(this, name,age);
+//        this.sex = sex ;
+//    };
+//    extend(Student,Person);
+//
+//    var stu = new Student("hh",20,"男")
+//    alert(stu.name);
+//    alert(stu.age);
+//    alert(stu.sex);
+//    stu.sayHello();
+//
+
+  ///////////////////////
+   //JavaScript 设计模式
+    //接口实现  鸭式辩型法
+   //、实现的核心：一个雷实现一个接口的主要目的：接口的方法都实现了 （检测方法）
+    //完全面向对象  代码实现统一 也解耦了
+    // 1.接口类
+
+    /**
+     * 接口类需要两个参数
+     * @param name  接口的名字
+     * @param methods  接受方法名字的集合（数组）
+     * @constructor
+     */
+    var Interface = function (name, methods) {
+        if(arguments.length!=2){
+            throw new Error("this instance interface constructor arguments must be 2 length");
+        }
+        this.name = name;
+        this.methods = [];
+        for(var i = 0,len = methods.length;i<len;i++){
+            var method = methods[i];
+            if(typeof method != "string"){
+                throw new Error("the Interface method name is error");
+            }else{
+                this.methods.push(method);
+            }
+
+        }
+    };
+    //实例化接口对象
+    var CompositeInterface = new Interface("CompositeInterface",["add","remove"]);
+    var FormItemInterface = new Interface("FormItemInterface",["update","select"])
+    // 2 准备工作，具体的体现类
+    var CompositeImpl = function () {
+
+    }
+
+
+
+</script>
+</body>
+</html>
