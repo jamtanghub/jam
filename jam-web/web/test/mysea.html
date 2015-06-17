@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>seajs测试</title>
+
+    <style>
+        #main-container{
+            border:2px solid grey;
+            border-radius: 20px 20px 20px 20px;
+            width:300px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+ <div id="main-container">
+     
+ </div>
+</body>
+<script type="text/javascript" src="../lib/seajs/sea-debug.js"></script>
+
+
+<script>
+    seajs.config({
+        base:"../module"
+    });
+    seajs.use("sea/main");
+</script>
+</html>

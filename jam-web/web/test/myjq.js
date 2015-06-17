@@ -15,3 +15,5 @@
     console.log( "2:" + typeof arg);
 
 }(window));
+
+

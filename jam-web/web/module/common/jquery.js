@@ -12,6 +12,9 @@
  * Date: 2014-12-18T15:11Z
  */
 
+define(function (require, exports, module) {
+
+
 
 (function( global, factory ) {
 
@@ -9204,3 +9207,7 @@ if ( typeof noGlobal === strundefined ) {
 return jQuery;
 
 }));
+
+
+
+});

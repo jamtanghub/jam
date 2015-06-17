@@ -134,6 +134,8 @@ var callback = function (window, noGlobal) {
                 slice.call(this);
         },
 
+
+        //栈操作（内部方法）
         // Take an array of elements and push it onto the stack
         // (returning the new matched element set)
         pushStack: function (elems) {
@@ -142,7 +144,7 @@ var callback = function (window, noGlobal) {
             var ret = jQuery.merge(this.constructor(), elems);
 
             // Add the old object onto the stack (as a reference)
-            ret.prevObject = this;
+            ret.prevObject = this;  //保存上一个对象  也就是栈的下一个对象  链式操作时就会用到这个
             ret.context = this.context;
 
             // Return the newly-formed element set
@@ -193,6 +195,13 @@ var callback = function (window, noGlobal) {
 
 
     //jq实现继承的方法
+    //  复习下：JavaScript是实现继承的几种方式：1.原型继承、2.拷贝继承、3.类继承   在这里使用的是拷贝继承。
+    //
+    //
+    //
+    // 同一个函数怎么让 jQuery.extend y与 jQuery.fn.extend实现了不同的功能呢？  因为两个this不同
+    //
+    //
     jQuery.extend = jQuery.fn.extend = function () {
         var options, name, src, copy, copyIsArray, clone,
             target = arguments[0] || {},
@@ -200,7 +209,7 @@ var callback = function (window, noGlobal) {
             length = arguments.length,
             deep = false;
 
-        // Handle a deep copy situation
+        // Handle a deep copy situation  第一个参数是布尔值  ture就执行深度拷贝
         if (typeof target === "boolean") {
             deep = target;
 
@@ -3264,7 +3273,7 @@ var callback = function (window, noGlobal) {
         return self;
     };
 
-     // Deferred�����ʵ��  �첽��ͳһ����
+     // Deferred对象 延时对象
     jQuery.extend({
 
         Deferred: function (func) {
@@ -3425,7 +3434,7 @@ var callback = function (window, noGlobal) {
         // the ready event fires. See #6781
         readyWait: 1,
 
-        // Hold (or release) the ready event
+        // Hold (or release) the ready event  //holdReady方法接受一个布尔参数  true表示 hold住ready 不触发read事件  fasle表示释放hold  触发ready事件
         holdReady: function (hold) {
             if (hold) {
                 jQuery.readyWait++;
@@ -3434,7 +3443,7 @@ var callback = function (window, noGlobal) {
             }
         },
 
-        // Handle when the DOM is ready
+        // Handle when the DOM is ready   //ready方法
         ready: function (wait) {
 
             // Abort if there are pending holds or we're already ready
@@ -3451,7 +3460,7 @@ var callback = function (window, noGlobal) {
             }
 
             // If there are functions bound, to execute
-            readyList.resolveWith(document, [jQuery]);
+            readyList.resolveWith(document, [jQuery]);         //平时常用的resolve方法，这里用resolveWith  区别在于 后一个可以传参数
 
             // Trigger any bound ready events
             if (jQuery.fn.triggerHandler) {
@@ -9223,4 +9232,7 @@ var callback = function (window, noGlobal) {
 };
 
 f(arg, callback);
+
+
+
 
