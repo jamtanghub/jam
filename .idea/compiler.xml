@@ -23,7 +23,6 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="jam-data" />
-        <module name="jam-tutorail" />
         <module name="jam-web" />
       </profile>
     </annotationProcessing>
@@ -35,4 +34,3 @@
     </bytecodeTargetLevel>
   </component>
 </project>
-

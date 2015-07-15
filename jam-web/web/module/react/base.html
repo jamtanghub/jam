@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>React入门</title>
+
+    <script type="text/javascript" src="../../lib/react/react.js"></script>
+    <script type="text/javascript" src="../../lib/react/JSXTransformer.js"></script>
+
+</head>
+<body>
+  <div>
+      是什么：一个用于可创建 可复用、可聚合的web组件的js库。
+      只提供了mvc中的"V"
+      js逻辑和html紧密结合
+
+      #2
+      单向数据流
+
+      #3
+      组件的嵌套
+
+      #组件的状态
+      status
+
+      #组件的参数
+      props
+
+      #事件 Event
+  </div>
+
+  <div id="app">
+      <script type="text/jsx">
+          var MessageBox = React.createClass({
+              alertMe: function () {
+                alert("点我了一下！");
+              },
+              render: function () {
+                  var messages = [];
+                  for(var ii = 0;ii<10 ;ii++){
+                      messages.push(
+                              <Submessage key={"submsg"+ ii}/>
+                      );
+                  }
+
+                  return (
+                          <div>
+                           <h1 onClick={this.alertMe}>Hello world</h1>
+                              <Submessage/>
+                          </div>
+                  )
+              }
+
+          });
+
+          var Submessage = React.createClass({
+              render: function () {
+                  return (
+                          <div>
+                            <h3>学习React有意思</h3>
+                            <Footer/>
+                          </div>
+                  )
+              }
+          });
+
+          var Footer = React.createClass({
+              render: function () {
+                  return (
+                          <small>我在用代码创造世界</small>
+                  )
+              }
+          });
+
+          React.render(<MessageBox/>,
+            document.getElementById("app"),
+                  function () {
+                      console.log("渲染完成了！！");
+                  }
+          );
+      </script>
+  </div>
+
+   <div id="clickapp">
+       <script type="text/jsx">
+          var ClickApp = React.createClass({
+              getInitialState: function () {  //状态
+                 return {
+                     display:true,
+                     clickcount:0,
+                     titleMessage:"点击下面的按钮（来自state）"
+                 }
+              },
+              clickHandler: function () {
+                 this.setState({
+                     clickcount:this.state.clickcount+1
+                });
+              },
+              render: function () {
+                  var styleObj = {
+                     display:this.state.display?"block":"none"
+                  };
+
+                  return (
+                         <div>
+                             <h2 style={styleObj}>{this.state.titleMessage}</h2>
+                             <button onClick={this.clickHandler}>点我</button>
+                             <p>我被点击了{this.state.clickcount}次</p>
+                         </div>
+                  )
+              }
+          });
+
+          var MesBox = React.render(<ClickApp/>,
+                  document.getElementById("clickapp"),
+                  function () {
+                      console.log("呵呵");
+                  }
+          );
+       </script>
+   </div>
+
+
+   <div id="props">
+       <script type="text/jsx">
+           var PropsEle = React.createClass({
+               getInitialState: function () {
+                    return{
+                       subMsg:[
+                               '我会搬砖',
+                               '以及花式搬砖',
+                               '不说了，工头叫我回去搬砖了！'
+                       ]
+                    }
+               },
+
+               render: function () {
+
+                   return (
+                           <div>
+                              <SubPropsEle messages={this.state.subMsg}/>
+                           </div>
+                   )
+               }
+           });
+
+           var SubPropsEle = React.createClass({
+               propTypes: function () {                      //要求的参数类型
+                   messages:React.PropTypes.array.isRequired //这个参数是必填的
+               },
+               getDefaultProps: function () {
+                   return{
+                       messages:["默认消息"]
+                   }
+               },
+               render: function () {
+                   var msgs = [];
+                   this.props.messages.forEach(function (e) {
+                       msgs.push(
+                               <p>{e}</p>
+                       );
+                   });
+
+                   return(
+                           <div>
+                               {msgs}
+                           </div>
+                   )
+               }
+           });
+
+           React.render(<PropsEle/>,
+                       document.getElementById("props"),
+                       function () {
+                         console.log("组件参数部分渲染完成");
+                       }
+           );
+
+
+       </script>
+   </div>
+</body>
+</html>

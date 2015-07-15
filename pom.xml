@@ -13,6 +13,18 @@
         <module>jam-web</module>
     </modules>
 
+    <!-- 整体控制各个包的版本 -->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.version>3.2.8.RELEASE</spring.version>
+        <spring.data.version>1.5.0.RELEASE</spring.data.version>
+        <!--<hibernate.version>4.1.0.Final</hibernate.version>-->
+        <hibernate.version>3.6.10.Final</hibernate.version>
+        <hibernate.annotation.version>3.2.0.Final</hibernate.annotation.version>
+        <log4j.version>1.2.15</log4j.version>
+        <jackson-core.version>2.3.0</jackson-core.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -27,6 +39,44 @@
                 <version>2.1</version>
                 <scope>provided</scope>
             </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-jpa</artifactId>
+                <version>${spring.data.version}</version>
+
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>1.7.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>1.6.1</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
