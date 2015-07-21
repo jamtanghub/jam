@@ -1,0 +1,52 @@
+<?xml version="1.0"  encoding="UTF-8"  ?>
+<ranges field="magnitude">
+    <range>
+        <caption>超微震</caption>
+        <start>0</start>
+        <end>1.0</end>
+        <style>theme.markers.grey_4</style>
+    </range>
+    <range>
+        <caption>弱震</caption>
+        <start>1.0</start>
+        <end>3.0</end>
+        <style>theme.markers.grey_5</style>
+    </range>
+  
+    <range>
+        <caption>有感地震</caption>
+        <start>3.0</start>
+        <end>4.5</end>
+        <style>theme.markers.yellow_green</style>
+    </range>
+    
+    <range>
+        <caption>中强震</caption>
+        <start>4.5</start>
+        <end>6.0</end>
+        <style>theme.markers.light_blue</style>
+    </range>
+    
+    <range>
+        <caption>强震</caption>
+        <start>6.0</start>
+        <end>7.0</end>
+        <style>theme.markers.blue</style>
+    </range>
+    
+    <range>
+        <caption>大地震</caption>
+        <start>7.0</start>
+        <end>8.0</end>
+        <style>theme.markers.orange</style>
+    </range>
+    
+    <range>
+        <caption>巨大地震</caption>
+        <start>8.0</start>
+        <end>100</end>
+        <style>theme.markers.red</style>
+    </range>
+    
+    
+</ranges>

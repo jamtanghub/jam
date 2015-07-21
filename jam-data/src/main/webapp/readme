@@ -1,0 +1,10 @@
+【一、目录结构】
+    --src
+       |--main
+           |--java
+           |--pock
+           |--resources
+           |--webapp
+                |--assets
+                |--lib
+                |--WEB-INF
