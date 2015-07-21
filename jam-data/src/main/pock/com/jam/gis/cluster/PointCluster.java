@@ -13,9 +13,7 @@ import java.util.Map;
 
 public class PointCluster implements ICluster {
 
-    /**
-     * 根据距离（等距）聚类抽希
-     */
+
     public Object[] clusterByDistance(Object[] features, double resolution, double distance)
     {
         ArrayList clusters = new ArrayList();
@@ -50,10 +48,7 @@ public class PointCluster implements ICluster {
         return pnts;
     }
 
-    /**
-     * 聚类抽希切片网格（每网格取1）麻点对象
-     * @param feas 网格麻点对象
-     */
+
     public Object[] clusterByGrid(Object[] feas, MapContent map, Tile tile, Size gridSize)
     {
         int len = feas.length;//网格麻点数

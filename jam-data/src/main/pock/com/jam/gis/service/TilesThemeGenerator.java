@@ -11,6 +11,7 @@ import com.jam.gis.theme.ThemeRange;
 import com.jam.gis.theme.ThemeRangeItem;
 import com.jam.gis.tile.Tile;
 import org.dom4j.Element;
+import org.springframework.stereotype.Service;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

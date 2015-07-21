@@ -12,15 +12,19 @@ import com.jam.gis.style.StyleConfig;
 import com.jam.gis.theme.Theme;
 import com.jam.gis.tile.*;
 import org.dom4j.Document;
+import org.springframework.stereotype.Service;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class TilesGenerator implements ITilesGenerator {
 
+    IFeaturesQuery featureQuery = null;
+
+
     protected static IconMarkerStyle defMarkerStyle = StyleConfig.getDefMarkerStyle();//获取瓦片麻点样式配置
     protected static IconMarkerStyle themeMarkerStyle = StyleConfig.getDefThemeMarkerStyle();//获取专题瓦片麻点样式配置
-    protected IFeaturesQuery featureQuery = null;
+
 
     public TilesGenerator()
     {
@@ -28,7 +32,6 @@ public class TilesGenerator implements ITilesGenerator {
         defMarkerStyle.iconUrl = "";
     }
 
-    /**从后台DB，获取切片麻点对象（NPoint/NPointTheme）组*/
     public Object[] getFeaturesByTileEx(AttrParams attrParams, MapContent mapContent, Tile tile, ClusterSettings clusterSettings)
     {
         DataSetInfo dataInfo = DataSetInfo.getDataSetInfoBy(attrParams.getLayerName());//麻点图层对应点数据集信息

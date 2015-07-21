@@ -20,7 +20,7 @@ public class Theme {
         Document doc = null;
         try {
             //麻点专题xml配置文件
-            InputStream in = Theme.class.getResourceAsStream("/pock/themes/themes.xml");
+            InputStream in = Theme.class.getResourceAsStream("/pock/theme/theme.xml");
             SAXReader reader = new SAXReader();
             doc = reader.read(in);
             if (in != null) in.close();

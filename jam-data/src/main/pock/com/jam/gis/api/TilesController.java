@@ -5,6 +5,7 @@ import com.jam.gis.data.AttrParams;
 import com.jam.gis.data.TiledResult;
 import com.jam.gis.map.MapContent;
 import com.jam.gis.service.ITilesGenerator;
+import com.jam.gis.service.TilesGenerator;
 import com.jam.gis.tile.Bounds;
 import com.jam.gis.tile.Size;
 import com.jam.gis.tile.Tile;
@@ -12,15 +13,19 @@ import com.jam.gis.tools.HttpRequestUtils;
 import com.jam.gis.tools.ParamesConvert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Map;
 
@@ -30,11 +35,11 @@ import java.util.Map;
 public class TilesController {
 
     @Autowired
-    private ITilesGenerator tileGenerator;//瓦片生成器
+    ITilesGenerator tileGenerator;//瓦片生成器
 
     @RequestMapping(value = "/img" ,method = RequestMethod.GET)
     @ResponseBody
-    public byte[] getTile(HttpServletRequest request,HttpSession session) throws IOException{
+    public ResponseEntity<byte[]> getTile(HttpServletRequest request,HttpSession session) throws IOException{
         HttpHeaders responseHeaders = new HttpHeaders();
         request.setCharacterEncoding("UTF-8");
 
@@ -89,14 +94,13 @@ public class TilesController {
         mapContent.setMaxExtent(new Bounds(strMaxExtent));//地图最大边界
         mapContent.setResolution(resolution);//屏幕分辨率
 
-        Size tileSize = new Size();//图层切片大小
-        int width = Integer.parseInt(strWidth);
+        Size tileSize = new Size();
+        int width =  Integer.parseInt(strWidth);
         int height = Integer.parseInt(strHeight);
         tileSize.w = width;
         tileSize.h = height;
-        //切片网格聚集抽希设置
-        Size gridSize = new Size(gsizeWidth, gsizeHeight);//切片网格大小
 
+        Size gridSize = new Size(gsizeWidth, gsizeHeight);//切片网格大小
 
         ClusterSettings clusterSettings = new ClusterSettings(isCluster, gridSize, distance, maxClusterLevel);
         //切片对象
@@ -113,37 +117,41 @@ public class TilesController {
         Object[] feas = tileGenerator.getFeaturesByTileEx(attrParams, mapContent, tile, clusterSettings);
         session.setAttribute("L", strLevel);//当前比例等级
         session.setAttribute(rcl, feas);//session中，设置切片麻点对象
+        tileImg = this.tileGenerator.getDynTile(feas, attrParams, mapContent, tile);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ImageIO.write(tileImg, tile.getImgFormat(), out);//按照图片类型写
+        tileBytes = out.toByteArray();//转字节
 
-        return null;
+        return new ResponseEntity(tileBytes, responseHeaders, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/fea",method = RequestMethod.GET)
     @ResponseBody
     public TiledResult getTileFeatures(HttpServletRequest request){
 
-        TiledResult result = new TiledResult();//瓦片结果对象
+        TiledResult result = new TiledResult();
         HttpSession session = request.getSession(false);
         if (session == null) return result;
-        Map parasMap = HttpRequestUtils.lowerRequestParams(request);//request参数
-        String strResolution = (String)parasMap.get("RESOLUTION");//屏幕分辨率
-        String strLevel = (String)parasMap.get("L");//地图比例尺等级
+        Map parasMap = HttpRequestUtils.lowerRequestParams(request);
+        String strResolution = (String)parasMap.get("RESOLUTION");
+        String strLevel = (String)parasMap.get("L");
 
-        String strBbox = (String)parasMap.get("BBOX");//瓦片矩形坐标
-        String strMaxExtent = (String)parasMap.get("MAXEXTENT");//屏幕最大边界(x*y坐标)
-        String strWidth = (String)parasMap.get("WIDTH");//切片宽（像素）
-        String strHeight = (String)parasMap.get("HEIGHT");//切片高（像素）
+        String strBbox = (String)parasMap.get("BBOX");
+        String strMaxExtent = (String)parasMap.get("MAXEXTENT");
+        String strWidth = (String)parasMap.get("WIDTH");
+        String strHeight = (String)parasMap.get("HEIGHT");
 
 
         double resolution = Double.parseDouble(strResolution);
-        Bounds bbox = new Bounds(strBbox);//瓦片边界
+        Bounds bbox = new Bounds(strBbox);
 
 
 
         MapContent mapContent = new MapContent();
-        mapContent.setMaxExtent(new Bounds(strMaxExtent));//屏幕最大边界
-        mapContent.setResolution(resolution);//屏幕分辨率
+        mapContent.setMaxExtent(new Bounds(strMaxExtent));
+        mapContent.setResolution(resolution);
 
-        Size tileSize = new Size();//瓦片像素大小
+        Size tileSize = new Size();
         int width = Integer.parseInt(strWidth);
         int height = Integer.parseInt(strHeight);
         tileSize.w = width;
@@ -155,12 +163,12 @@ public class TilesController {
         String rcl = mapContent.getTileIJ(bbox, tileSize) + "_" + strLevel;
         //同一比例尺
         if (session.getAttribute("L").equals(strLevel)) {
-            Object feas = session.getAttribute(rcl);//瓦片麻点对象
+            Object feas = session.getAttribute(rcl);
             if (feas != null) {
-                result = this.tileGenerator.getFeaturesInBbox(feas, bbox);//获取瓦片麻点对象组（及样式）
+                result = tileGenerator.getFeaturesInBbox(feas, bbox);
             }
         }
-        session.removeAttribute(rcl);//避免session空间占满，浏览器死掉，只一次获取
+        session.removeAttribute(rcl);
         return result;
     }
 }

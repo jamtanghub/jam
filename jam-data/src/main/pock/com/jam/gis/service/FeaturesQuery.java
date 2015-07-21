@@ -10,13 +10,29 @@ import com.jam.gis.tile.Bounds;
 import com.jam.gis.tile.NPoint;
 import com.jam.gis.tile.Size;
 import com.jam.gis.tile.Tile;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
-
 public class FeaturesQuery implements IFeaturesQuery {
-    ISimpleDao simpleDAL = null;
-    ICluster pointCluster = null;   //实现聚集   by Distance  和  by  Grid
+    ISimpleDao simpleDao = null;
+    ICluster pointCluster = null;
+
+    public ISimpleDao getSimpleDao() {
+        return simpleDao;
+    }
+
+    public void setSimpleDao(ISimpleDao simpleDao) {
+        this.simpleDao = simpleDao;
+    }
+
+    public ICluster getPointCluster() {
+        return pointCluster;
+    }
+
+    public void setPointCluster(ICluster pointCluster) {
+        this.pointCluster = pointCluster;
+    }
 
     /**获取切片的全部点对象组*/
     public Object[] getFeatures(AttrParams attrParams, Bounds bounds, double resolution) {
@@ -28,14 +44,14 @@ public class FeaturesQuery implements IFeaturesQuery {
             double dy = iconStyle.iconHeight * resolution;
             Bounds queryBounds = bounds.createExtend(-dx, -dy, dx, 0.0D);
             //获取默认麻点图层切片网格 全部点对象NPoint
-            feas = this.simpleDAL.getFeatrues(attrParams, queryBounds);
+            feas = this.simpleDao.getFeatrues(attrParams, queryBounds);
         } else {
             IconMarkerStyle iconStyle = StyleConfig.getDefThemeMarkerStyle();//专题麻点图标样式
             double dx = iconStyle.iconWidth * resolution;
             double dy = iconStyle.iconHeight * resolution;
             Bounds queryBounds = bounds.createExtend(-dx, -dy, dx, 0.0D);
             //获取（行业分段专题）麻点图层切片网格 全部点对象NPoint
-            feas = this.simpleDAL.getThemeFeatrues(attrParams, queryBounds);
+            feas = this.simpleDao.getThemeFeatrues(attrParams, queryBounds);
         }
         return feas;
     }
@@ -53,9 +69,9 @@ public class FeaturesQuery implements IFeaturesQuery {
         String themeType = attrParams.getThemeType();//专题类型
         //后台DB获取切片网格 所有麻点对象
         if (themeType == null)
-            feas = this.simpleDAL.getFeatrues(attrParams, queryBounds);//一般对象（NPoint）组
+            feas = this.simpleDao.getFeatrues(attrParams, queryBounds);//一般对象（NPoint）组
         else {
-            feas = this.simpleDAL.getThemeFeatrues(attrParams, queryBounds);//行业大类分段专题麻点对象（NPointTheme）组
+            feas = this.simpleDao.getThemeFeatrues(attrParams, queryBounds);//行业大类分段专题麻点对象（NPointTheme）组
         }
         String dtype = attrParams.getDataType();//数据集类型
         if (dtype.equals("POINT")) {
@@ -65,14 +81,13 @@ public class FeaturesQuery implements IFeaturesQuery {
         return null;
     }
 
-    //获取切片聚集抽希的麻点对象组  （等比例抽希）distance效果与网格雷同
     public Object[] getClusterFeatures(AttrParams attrParams, Bounds queryBounds, double resolution, double distance) {
         Object[] feas = null;
         String themeType = attrParams.getThemeType();
         if (themeType == null)
-            feas = this.simpleDAL.getFeatrues(attrParams, queryBounds);
+            feas = this.simpleDao.getFeatrues(attrParams, queryBounds);
         else {
-            feas = this.simpleDAL.getThemeFeatrues(attrParams, queryBounds);
+            feas = this.simpleDao.getThemeFeatrues(attrParams, queryBounds);
         }
         String dtype = attrParams.getDataType();
         if (dtype.equals("POINT")) {

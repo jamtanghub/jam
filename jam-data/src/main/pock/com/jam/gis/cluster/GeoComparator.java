@@ -5,7 +5,9 @@ import com.jam.gis.tile.NPoint;
 import java.util.Comparator;
 
 
-
+/**
+ *
+ */
 public class GeoComparator implements Comparator {
     public int compare(Object o1, Object o2) {
         NPoint p0 = (NPoint) o1;
