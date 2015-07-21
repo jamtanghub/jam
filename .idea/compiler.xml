@@ -22,13 +22,19 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="jam-data" />
         <module name="jam-web" />
+      </profile>
+      <profile default="false" name="Annotation profile for jam-data" enabled="true">
+        <sourceOutputDir name="target\generated-sources\annotations" />
+        <sourceTestOutputDir name="target\generated-test-sources\test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="jam-data" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="jam" target="1.5" />
-      <module name="jam-data" target="1.5" />
+      <module name="jam-data" target="1.7" />
       <module name="jam-tutorail" target="1.5" />
       <module name="jam-web" target="1.5" />
     </bytecodeTargetLevel>
