@@ -50,7 +50,7 @@ public class MongoImpDao implements ISimpleDao {
         BasicDBObject query = new BasicDBObject();
         query.put("y", (new BasicDBObject("$gt", Double.valueOf(minY))).append("$lte", Double.valueOf(maxY)));
         query.put("x", (new BasicDBObject("$gt", Double.valueOf(minX))).append("$lte", Double.valueOf(maxX)));
-//        query.put(nameFld, Pattern.compile(queryParams.getKeyword()));
+        query.put(nameFld, Pattern.compile(queryParams.getKeyword()));
         DBObject oFlds = new BasicDBObject(nameFld, Integer.valueOf(1));
         oFlds.put("x", Integer.valueOf(1));
         oFlds.put("y", Integer.valueOf(1));

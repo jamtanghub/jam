@@ -7,8 +7,40 @@
     <meta name="renderer" content="webkit">
     <meta name="viewport" context="width:device-width,initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="assets/image/mk.ico"/>
+
+    <script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+    <link type="text/css" href="lib/bootstrap/css/bootstrap.min.css"/>
+    <link type="text/css" href="lib/OpenLayers/ol.css"/>
+    <link type="text/css" href="lib/page/sass/base.css"/>
+
+    <style type="text/css">
+
+    </style>
 </head>
 <body>
 
+  <div id="map-container">
+
+  </div>
 </body>
+<script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="lib/OpenLayers/ol-debug.js"></script>
+
+<script type="text/javascript" src="lib/seajs/sea.js"></script>
+
+<script type="text/javascript">
+    seajs.config({
+        base:"lib/module",
+        map:[
+                [".json",".json?t=" + Date.now],
+                [".js",".js?t=" + Date.now],
+                [".css",".css?t=" + Date.now]
+        ]
+    });
+
+    seajs.use("main", function (m) {
+        m.init();
+    })
+</script>
+
 </html>
