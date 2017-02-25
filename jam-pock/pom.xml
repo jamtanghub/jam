@@ -9,10 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>jam-data</artifactId>
+    <artifactId>jam-pock</artifactId>
 
     <packaging>war</packaging>
-    <name>jam-data</name>
+    <name>jam-pock</name>
 
     <dependencies>
         <dependency>

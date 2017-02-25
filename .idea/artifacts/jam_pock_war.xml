@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="jam-pock:war">
+    <output-path>$PROJECT_DIR$/jam-pock/target</output-path>
+    <root id="archive" name="jam-data.war">
+      <element id="artifact" artifact-name="jam-pock:war exploded" />
+    </root>
+  </artifact>
+</component>

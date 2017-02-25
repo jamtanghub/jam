@@ -17,12 +17,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="jam-data" />
+        <module name="jam-pock" />
         <module name="jam-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="jam" target="1.7" />
       <module name="jam-data" target="1.7" />
+      <module name="jam-pock" target="1.7" />
       <module name="jam-tutorail" target="1.5" />
       <module name="jam-web" target="1.7" />
     </bytecodeTargetLevel>
