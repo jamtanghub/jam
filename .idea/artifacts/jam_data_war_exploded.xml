@@ -1,10 +1,10 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="jam-data:war exploded">
-    <output-path>$PROJECT_DIR$/../../OUT/jam/data</output-path>
+    <output-path>$PROJECT_DIR$/jam-data/target/jam-data</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="jam-data" />
+          <element id="module-output" name="jam-pock" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.springframework:spring-core:3.2.8.RELEASE" />
@@ -39,9 +39,9 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/jam-data/target/jam-data/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/jam-pock/target/jam-data/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="jam-data/web/Web" />
+      <element id="javaee-facet-resources" facet="jam-pock/web/Web" />
     </root>
   </artifact>
 </component>

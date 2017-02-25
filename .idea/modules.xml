@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/jam.iml" filepath="$PROJECT_DIR$/jam.iml" />
-      <module fileurl="file://$PROJECT_DIR$/jam-data/jam-data.iml" filepath="$PROJECT_DIR$/jam-data/jam-data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jam-pock/jam-pock.iml" filepath="$PROJECT_DIR$/jam-pock/jam-pock.iml" />
       <module fileurl="file://$PROJECT_DIR$/jam-web/jam-web.iml" filepath="$PROJECT_DIR$/jam-web/jam-web.iml" />
     </modules>
   </component>

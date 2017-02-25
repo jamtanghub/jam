@@ -7,39 +7,39 @@
           <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/web.xml" />
         </descriptors>
         <webroots>
-          <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
+          <root url="file://$MODULE_DIR$/../jam-data/src/main/webapp" relative="/" />
         </webroots>
         <sourceRoots>
-          <root url="file://$MODULE_DIR$/src/java" />
-          <root url="file://$MODULE_DIR$/src/main/java" />
-          <root url="file://$MODULE_DIR$/src/main/pock" />
-          <root url="file://$MODULE_DIR$/src/main/resources" />
-          <root url="file://$MODULE_DIR$/src/resources" />
-          <root url="file://$MODULE_DIR$/src/test/java" />
+          <root url="file://$MODULE_DIR$/../jam-data/src/main/java" />
+          <root url="file://$MODULE_DIR$/../jam-data/src/main/resources" />
+          <root url="file://$MODULE_DIR$/../jam-data/src/test/java" />
+          <root url="file://$MODULE_DIR$/../jam-data/src/java" />
+          <root url="file://$MODULE_DIR$/../jam-data/src/resources" />
+          <root url="file://$MODULE_DIR$/../jam-data/src/main/pock" />
         </sourceRoots>
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="fileset" name="Spring Application Context" removed="false">
-          <file>file://$MODULE_DIR$/src/main/resources/spring-context.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/spring-context.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/spring-mvc.xml</file>
+          <file>file://$MODULE_DIR$/../jam-data/src/main/resources/spring-context.xml</file>
+          <file>file://$MODULE_DIR$/../jam-data/src/main/resources/spring-context.xml</file>
+          <file>file://$MODULE_DIR$/../jam-data/src/main/resources/spring-mvc.xml</file>
         </fileset>
       </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7" inherit-compiler-output="false">
-    <output url="file://$MODULE_DIR$/target/classes" />
-    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <output url="file://$MODULE_DIR$/../jam-data/target/classes" />
+    <output-test url="file://$MODULE_DIR$/../jam-data/target/test-classes" />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/pock" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../jam-data/src/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../jam-data/src/test/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../jam-data/src/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../jam-data/src/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
