@@ -35,7 +35,9 @@ import java.util.Map;
 public class TilesController {
 
     @Autowired
-    ITilesGenerator tileGenerator;//瓦片生成器
+    ITilesGenerator tileGenerator;
+
+
 
     @RequestMapping(value = "/img" ,method = RequestMethod.GET)
     @ResponseBody
@@ -45,7 +47,7 @@ public class TilesController {
 
         Map parasMap = HttpRequestUtils.lowerRequestParams(request);
         String keyword = (String)parasMap.get("KEYWORD");           //麻点名称关键字过滤
-        String strResolution = (String)parasMap.get("RESOLUTION");  //屏幕分辨率
+        String strResolution = (String)parasMap.get("RESOLUTION");  //分辨率
         String strLevel = (String)parasMap.get("L");                //当前比例尺等级
         String strMaxCount_inTile = (String)parasMap.get("COUNT");  //切片最大麻点数
         String layers = (String)parasMap.get("LAYERS");             //图层名（数据对象ID）
@@ -101,37 +103,38 @@ public class TilesController {
         tileSize.h = height;
 
         Size gridSize = new Size(gsizeWidth, gsizeHeight);//切片网格大小
-
         ClusterSettings clusterSettings = new ClusterSettings(isCluster, gridSize, distance, maxClusterLevel);
+
         //切片对象
         Tile tile = new Tile(tileSize);
         tile.setLevel(level);//比例等级
         tile.setBbox(bbox);//切片边界
         tile.setImgFormat(mtype.getSubtype());//切片麻点图标类型
-        BufferedImage tileImg;
-        byte[] tileBytes;
-        //获取切片唯一标识（行号_列号_比例等级）
+
+        //生成切片唯一标识（行号_列号_比例等级）
         String rcl = mapContent.getTileIJ(bbox, tileSize) + "_" + strLevel;
-        //查询参数中设置用户ID和sessionID
-        //DB获取切片麻点（NPoint/NPointTheme）对象组
-        Object[] feas = tileGenerator.getFeaturesByTileEx(attrParams, mapContent, tile, clusterSettings);
-        session.setAttribute("L", strLevel);//当前比例等级
-        session.setAttribute(rcl, feas);//session中，设置切片麻点对象
-        tileImg = this.tileGenerator.getDynTile(feas, attrParams, mapContent, tile);
+
+        //要素数据对象
+        Object[] feas = tileGenerator.getFeaturesByTile(attrParams, mapContent, tile, clusterSettings);
+        session.setAttribute("L", strLevel);
+        session.setAttribute(rcl, feas);//将当前数据放入session供获取feature使用
+
+        BufferedImage tileImg = tileGenerator.getDynTile(feas, attrParams, mapContent, tile);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ImageIO.write(tileImg, tile.getImgFormat(), out);//按照图片类型写
-        tileBytes = out.toByteArray();//转字节
+        byte[] tileBytes = out.toByteArray();//转字节
 
         return new ResponseEntity(tileBytes, responseHeaders, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/fea",method = RequestMethod.GET)
+    @RequestMapping(value = "/feature",method = RequestMethod.GET)
     @ResponseBody
     public TiledResult getTileFeatures(HttpServletRequest request){
-
         TiledResult result = new TiledResult();
         HttpSession session = request.getSession(false);
+
         if (session == null) return result;
+
         Map parasMap = HttpRequestUtils.lowerRequestParams(request);
         String strResolution = (String)parasMap.get("RESOLUTION");
         String strLevel = (String)parasMap.get("L");
@@ -141,11 +144,8 @@ public class TilesController {
         String strWidth = (String)parasMap.get("WIDTH");
         String strHeight = (String)parasMap.get("HEIGHT");
 
-
         double resolution = Double.parseDouble(strResolution);
         Bounds bbox = new Bounds(strBbox);
-
-
 
         MapContent mapContent = new MapContent();
         mapContent.setMaxExtent(new Bounds(strMaxExtent));
@@ -157,11 +157,9 @@ public class TilesController {
         tileSize.w = width;
         tileSize.h = height;
 
-
-
         //获取切片唯一标识（行号_列号_比例等级）
         String rcl = mapContent.getTileIJ(bbox, tileSize) + "_" + strLevel;
-        //同一比例尺
+
         if (session.getAttribute("L").equals(strLevel)) {
             Object feas = session.getAttribute(rcl);
             if (feas != null) {

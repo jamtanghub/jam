@@ -16,49 +16,60 @@
     http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
 
 
-       <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-              <property name="locations">
-                     <list>
-                            <value>classpath*:db.properties</value>
-                     </list>
-              </property>
-              <property name="fileEncoding" value="UTF-8"/>
-       </bean>
-        <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
-            <property name="properties" ref="configProperties" />
-        </bean>
-
-       <bean id="pointCluster" class="com.jam.gis.cluster.PointCluster"/>
-
-       <bean id="featureQuery" class="com.jam.gis.service.FeaturesQuery" >
-              <property name="simpleDao" ref="mongoDao" />
-              <property name="pointCluster" ref="pointCluster" />
-       </bean>
-       <bean id="tilesGenerator" class="com.jam.gis.service.TilesGenerator" >
-              <property name="featureQuery" ref="featureQuery" />
-       </bean>
+    <!--属性管理器 -->
+    <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath*:db.properties</value>
+            </list>
+        </property>
+        <property name="fileEncoding" value="UTF-8"/>
+    </bean>
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+        <property name="properties" ref="configProperties"/>
+    </bean>
 
 
-       <!-- 数据访问层接口实现 -->
-       <bean id="mongoDao" class="com.jam.gis.dao.MongoImpDao">
-              <property name="dbname" value="dyntiles-data"/>
-              <property name="mongo" ref="mongo"/>
-       </bean>
-       <!--  mongodb 参数配置 -->
-       <mongo:mongo id="mongo" host="127.0.0.1" port="27017">
-              <!--<mongo:options connections-per-host="20"-->
-                             <!--threads-allowed-to-block-for-connection-multiplier="50"-->
-                             <!--connect-timeout="2000"-->
-                             <!--max-wait-time="10000"-->
-                             <!--socket-keep-alive="false"-->
-                             <!--socket-timeout="0"-->
-                             <!--slave-ok="true"-->
-                             <!--write-number="1"-->
-                             <!--write-timeout="0"-->
-                             <!--write-fsync="true"/>-->
-       </mongo:mongo>
-       <!--  mongodb 集群配置
-       <mongo:mongo id="replicaSetMongo" replica-set="127.0.0.1:27017,localhost:27018"/>-->
+    <!--要素查询-->
+    <bean id="featureQuery" class="com.jam.gis.service.FeaturesQuery">
+        <property name="simpleDao" ref="mongoDao"/>
+        <property name="pointCluster" ref="pointCluster"/>
+    </bean>
+
+    <!--切片生成器 -->
+    <bean id="tileGenerator" class="com.jam.gis.service.TilesGenerator">
+        <property name="featureQuery" ref="featureQuery"/>
+    </bean>
+    <!-- 主题切片生成器 -->
+    <bean id="themeGenerator" class="com.jam.gis.service.ThemesGenerator">
+        <property name="featureQuery" ref="featureQuery"/>
+    </bean>
+
+
+
+
+    <bean id="pointCluster" class="com.jam.gis.cluster.PointCluster"/>
+
+    <!-- 数据访问层接口实现 -->
+    <bean id="mongoDao" class="com.jam.gis.dao.MongoImpDao">
+        <property name="dbname" value="dyntiles-data"/>
+        <property name="mongo" ref="mongo"/>
+    </bean>
+    <!--  mongodb 参数配置 -->
+    <mongo:mongo id="mongo" host="127.0.0.1" port="27017">
+        <!--<mongo:options connections-per-host="20"-->
+        <!--threads-allowed-to-block-for-connection-multiplier="50"-->
+        <!--connect-timeout="2000"-->
+        <!--max-wait-time="10000"-->
+        <!--socket-keep-alive="false"-->
+        <!--socket-timeout="0"-->
+        <!--slave-ok="true"-->
+        <!--write-number="1"-->
+        <!--write-timeout="0"-->
+        <!--write-fsync="true"/>-->
+    </mongo:mongo>
+    <!--  mongodb 集群配置
+    <mongo:mongo id="replicaSetMongo" replica-set="127.0.0.1:27017,localhost:27018"/>-->
 
 
 </beans>

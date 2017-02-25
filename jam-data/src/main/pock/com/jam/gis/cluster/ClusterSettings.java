@@ -9,8 +9,7 @@ public class ClusterSettings {
     public int distance;
     public int maxClusterLevel;
 
-    public ClusterSettings(){
-    }
+    public ClusterSettings(){}
 
     public ClusterSettings(boolean isClst, Size gsize, int distance, int maxClusterLevel)
     {

@@ -18,13 +18,20 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-public class TilesThemeGenerator extends TilesGenerator implements ITilesGenerator{
+public class ThemesGenerator extends TilesGenerator implements ITilesGenerator{
+    private FeaturesQuery featuresQuery;
+
+    public FeaturesQuery getFeaturesQuery() {
+        return featuresQuery;
+    }
+    public void setFeaturesQuery(FeaturesQuery featuresQuery) {
+        this.featuresQuery = featuresQuery;
+    }
+
     HashMap<String, BufferedImage> mkMap = StyleConfig.THEME_MARKERS;
     IconMarkerStyle iconStyle = StyleConfig.getDefThemeMarkerStyle();
 
-    public BufferedImage getDynTile(Object[] features, AttrParams attrParams,
-
-                                    MapContent mapContent, Tile tile) {
+    public BufferedImage getDynTile(Object[] features, AttrParams attrParams, MapContent mapContent, Tile tile) {
         BufferedImage img = null;
         String type = attrParams.getDataType();
         Element root = attrParams.themeConfig.getRootElement();
@@ -37,11 +44,11 @@ public class TilesThemeGenerator extends TilesGenerator implements ITilesGenerat
             Element e = (Element) o;
             item.setCaption(e.element("caption").getTextTrim());
 
-            int start = (int) (e.element("start").getTextTrim().toCharArray()[0]);
-            int end = (int) (e.element("end").getTextTrim().toCharArray()[0]);
+            String startStr = e.element("start").getTextTrim();
+            String endStr = e.element("end").getTextTrim();
 
-            item.setStart(Double.parseDouble(start + ""));
-            item.setEnd(Double.parseDouble(end + "") + 0.1);
+            item.setStart(Double.parseDouble(startStr));
+            item.setEnd(Double.parseDouble(endStr) + 0.1);
             ThemeStyle themeStyle = new ThemeStyle();
             if ("POINT".equals(type)) {
                 themeStyle.markerSymbol = e.element("style").getTextTrim();
@@ -60,7 +67,12 @@ public class TilesThemeGenerator extends TilesGenerator implements ITilesGenerat
         return img;
     }
 
-    // 生成图例 具体在ThemeRange里实现
+
+    /**
+     * 生成专题图图例 具体在ThemeRange里实现
+     * @param attrParams
+     * @return
+     */
     public BufferedImage getLegend(AttrParams attrParams) {
         String lyrName = attrParams.getLayerName();
         DataSetInfo dataInfo = DataSetInfo.getDataSetInfoBy(lyrName);

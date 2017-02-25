@@ -8,7 +8,8 @@
   } else if (typeof define === "function" && define.amd) {
     define([], factory);
   } else {
-    root.ol = factory();
+    //root.ol = factory();
+    factory();
   }
 }(this, function () {
   var OPENLAYERS = {};
@@ -243,6 +244,7 @@ goog.define('goog.TRUSTED_SITE', true);
  *
  */
 goog.define('goog.STRICT_MODE_COMPATIBLE', false);
+
 
 
 /**

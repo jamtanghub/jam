@@ -10,11 +10,9 @@ import java.io.IOException;
 
 
 public interface ILayer {
-    public abstract Bounds getBounds();
+    public  Bounds getBounds();
 
-    public abstract void render(Graphics2D paramGraphics2D, MapContent paramMapContent, Bounds paramBounds)throws IOException;
+    public  void render(Graphics2D paramGraphics2D, MapContent paramMapContent, Bounds paramBounds)throws IOException;
 
-    public abstract BufferedImage paint(MapContent paramMapContent, Tile paramTile) throws IOException;
-
-    public abstract BufferedImage paint(MapContent paramMapContent, Tile paramTile, String iconPath) throws IOException;
+    public  BufferedImage paint(MapContent paramMapContent, Tile paramTile) throws IOException;
 }

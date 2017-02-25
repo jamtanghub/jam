@@ -54,6 +54,7 @@ public class ThemeRange extends Theme {
                 ThemeStyle style = getStyleBy(fea.getKv());          // 拿到kv值  看其在那个区间
 
 
+
                 icon = (BufferedImage) mkMap.get(style.markerSymbol);
                 int[] pixel = map.coordsToPixel(fea.getX(), fea.getY(),
                         bbox);

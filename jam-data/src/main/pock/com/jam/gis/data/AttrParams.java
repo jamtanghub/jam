@@ -20,9 +20,7 @@ public class AttrParams {
     String themeType;
     public Document themeConfig;
 
-    //isSampling=true时代表抽样
-    boolean isSampling = false;
-    String samplingTempTableName;
+
 
     public List kvs = null;
 
@@ -130,19 +128,5 @@ public class AttrParams {
         this.nameFiled = nameFiled;
     }
 
-    public void setSampling(boolean isSampling){
-        this.isSampling = isSampling;
-    }
 
-    public boolean isSampling(){
-        return isSampling;
-    }
-
-    public void setSamplingTempTableName(String samplingTempTableName){
-        this.samplingTempTableName = samplingTempTableName;
-    }
-
-    public String getSamplingTempTableName(){
-        return samplingTempTableName;
-    }
 }

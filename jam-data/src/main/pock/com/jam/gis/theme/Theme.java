@@ -25,7 +25,7 @@ public class Theme {
             doc = reader.read(in);
             if (in != null) in.close();
         } catch (IOException e) {
-            logger.error("读取 themes文件 " + name + ".xml 失败！");
+            logger.error("读取 theme文件 " + name + ".xml 失败！");
         } catch (DocumentException e) {
             e.printStackTrace();
         }

@@ -1,5 +1,5 @@
 <?xml version="1.0"  encoding="UTF-8"  ?>
-<ranges field="magnitude">
+<ranges field="kv">
     <range>
         <caption>超微震</caption>
         <start>0</start>

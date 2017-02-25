@@ -6,6 +6,8 @@ import com.jam.gis.tile.NPoint;
 import com.jam.gis.tile.NPointTheme;
 import com.mongodb.*;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.regex.Pattern;
 
 
@@ -34,7 +36,6 @@ public class MongoImpDao implements ISimpleDao {
     private final String POLYGON = "POLYGON";
 
 
-
     public Object[] getFeatrues(AttrParams queryParams, Bounds bounds) {
         Object[] array= null;
         String  dtype = queryParams.getDataType();
@@ -46,6 +47,7 @@ public class MongoImpDao implements ISimpleDao {
         double maxY = bounds.top;
         DB db = mongo.getDB(dbname);
 
+
         DBCollection coll = db.getCollection(queryParams.getLayerName());
         BasicDBObject query = new BasicDBObject();
         query.put("y", (new BasicDBObject("$gt", Double.valueOf(minY))).append("$lte", Double.valueOf(maxY)));
@@ -56,7 +58,7 @@ public class MongoImpDao implements ISimpleDao {
         oFlds.put("y", Integer.valueOf(1));
         DBObject oSort = new BasicDBObject(nameFld, Integer.valueOf(-1));
 
-        System.out.println(query.toString());
+//        System.out.println(query.toString());
 
         DBCursor cursor = coll.find(query, oFlds).sort(oSort);
         int count = cursor.count();
@@ -87,6 +89,14 @@ public class MongoImpDao implements ISimpleDao {
         double maxY = bounds.top;
 
         DB db = mongo.getDB(dbname);
+
+//        Collection<DB> dbs = mongo.getUsedDatabases();
+//        Iterator<DB> iterator = dbs.iterator();
+//        while (iterator.hasNext()){
+//            DB d = iterator.next();
+//            d.getName();
+//        }
+
 
         DBCollection coll = db.getCollection(queryParams.getLayerName());
         BasicDBObject query = new BasicDBObject();

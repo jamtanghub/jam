@@ -1,0 +1,135 @@
+﻿.wraper{
+	margin:0 auto;
+	min-width:900px;
+	padding:10px 0;
+}
+.map-wrapper{
+    position:relative;
+    width:99.6%;
+    margin:0 auto;
+}
+.map-container{
+	position:relative;
+	width:100%;
+    height:100%;
+	border:solid 1px #eee;
+}
+.map-legend{
+    position:absolute;
+    left:0;
+    bottom:0;
+    border:solid 1px #eee;
+    overflow:hidden;
+}
+.markerRect{
+    width:12px;
+    height:12px;
+    border:solid 1px red;
+}
+.rect-rounded{
+	border-radius:6px;
+}
+
+.float-right{
+	float:right;
+}
+.float-left{
+	float:left;
+}
+
+
+.mr10{
+	margin-right: 10px;
+}
+.mr20{
+    margin-right: 20px;
+}
+.mr50{
+    margin-right: 50px;
+}
+.ml10{
+	margin-left: 10px;
+}
+.ml50{
+    margin-left: 50px;
+}
+.ml100{
+    margin-left: 100px;
+}
+.ml200{
+    margin-left: 200px;
+}
+.mt5{
+    margin-top: 5px;
+}
+.mt10{
+	margin-top: 10px;
+}
+.mb10{
+	margin-bottom: 10px;
+}
+.dropdown-menu li a{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
+.fs12{
+	font-size: 12px;
+}
+.fs14{
+	font-size: 14px;
+}
+.fs16{
+	font-size: 16px;
+}
+.dropdown-menu .divider{
+	margin:5px 1px;
+}
+.mysettings{
+	
+}
+.hand{
+	cursor:pointer;
+}
+.title-text{
+	color:#0068d7;
+	cursor:default;
+	margin:0 8px;
+	line-height:22px;
+}
+..has-switch{
+	float:left;
+}
+.markNameCss{   
+    position: relative;top:-24px; left:18px;
+    font-weight:500;font-size:12px; 
+    padding:0px 5px;height:20px; line-height:20px;
+    color:#2A00DA; 
+    background-color:white; 
+    border:solid 1px #0068d7;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background-clip: padding-box; 
+    opacity:0.8;
+    filter:alpha(opacity=80)
+    -webkit-box-shadow: 0px 0px 2px 0px #ffffff; 
+          box-shadow: 0px 0px 2px 0px #ffffff;
+    text-shadow: 0px 0px 0px #222;
+    white-space:nowrap; text-overflow:ellipsis;
+}
+.popover{
+	width:260px;
+}
+.popover-title{
+	color:blue;
+}
+.popover-content {
+	padding: 9px 14px;
+	line-height: 24px;
+}
+img {max-width: none ; vertical-align: baseline;}
+.olImageLoadError{
+    display: none;
+}
+

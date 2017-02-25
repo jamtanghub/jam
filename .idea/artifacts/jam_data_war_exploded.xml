@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="jam-data:war exploded">
-    <output-path>$PROJECT_DIR$/out/jam-data</output-path>
+    <output-path>$PROJECT_DIR$/../../OUT/jam/data</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -28,6 +28,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:3.2.8.RELEASE" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-log4j12:1.7.1" />
           <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
+          <element id="library" level="project" name="Maven: jaxen:jaxen:1.1.6" />
           <element id="library" level="project" name="Maven: dom4j:dom4j:1.6.1" />
           <element id="library" level="project" name="Maven: xml-apis:xml-apis:1.0.b2" />
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.10" />

@@ -12,15 +12,19 @@ import com.jam.gis.style.StyleConfig;
 import com.jam.gis.theme.Theme;
 import com.jam.gis.tile.*;
 import org.dom4j.Document;
-import org.springframework.stereotype.Service;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class TilesGenerator implements ITilesGenerator {
+    IFeaturesQuery featureQuery;
 
-    IFeaturesQuery featureQuery = null;
-
+    public IFeaturesQuery getFeatureQuery() {
+        return featureQuery;
+    }
+    public void setFeatureQuery(IFeaturesQuery featureQuery) {
+        this.featureQuery = featureQuery;
+    }
 
     protected static IconMarkerStyle defMarkerStyle = StyleConfig.getDefMarkerStyle();//获取瓦片麻点样式配置
     protected static IconMarkerStyle themeMarkerStyle = StyleConfig.getDefThemeMarkerStyle();//获取专题瓦片麻点样式配置
@@ -32,7 +36,15 @@ public class TilesGenerator implements ITilesGenerator {
         defMarkerStyle.iconUrl = "";
     }
 
-    public Object[] getFeaturesByTileEx(AttrParams attrParams, MapContent mapContent, Tile tile, ClusterSettings clusterSettings)
+    /**
+     * 查询要素数据
+     * @param attrParams
+     * @param mapContent
+     * @param tile
+     * @param clusterSettings
+     * @return
+     */
+    public Object[] getFeaturesByTile(AttrParams attrParams, MapContent mapContent, Tile tile, ClusterSettings clusterSettings)
     {
         DataSetInfo dataInfo = DataSetInfo.getDataSetInfoBy(attrParams.getLayerName());//麻点图层对应点数据集信息
         Document doc = Theme.getThemeConfigBy(attrParams.getLayerName()); //doc是专题图是用到的配置文件/pock/themes/themes.xml
@@ -69,29 +81,7 @@ public class TilesGenerator implements ITilesGenerator {
         return null;
     }
 
-    /**
-     * 生成带麻点图标的瓦片缓冲图
-     * @param features 切片麻点对象组
-     * @param attrParams 切片查询参数
-     * @param mapContent 当前地图参数
-     * @param tile 切片参数
-     * @param iconPath 切片麻点图标路径
-     * */
-    public BufferedImage getDynTile(Object[] features, AttrParams attrParams, MapContent mapContent, Tile tile, String iconPath) {
-        TiledLayer layer = null;
-        String type = attrParams.getDataType();
-        if ("POINT".equals(type)) {
-            LayerStyle layerStyle = new LayerStyle(defMarkerStyle);
-            layer = new TiledLayer(features, layerStyle, type);//创建瓦片对象
-        }
-        try {
-            return layer.paint(mapContent, tile, iconPath);//瓦片上绘制麻点图标，返回瓦片缓冲图
-        } catch (IOException e) {
-            System.out.println("生成图层切片出错");
-            e.printStackTrace();
-        }
-        return null;
-    }
+
 
     public BufferedImage getDynTile(Object[] features, AttrParams attrParams, MapContent mapContent, Tile tile) {
         TiledLayer layer = null;
@@ -109,7 +99,7 @@ public class TilesGenerator implements ITilesGenerator {
     }
 
     /**
-     * 获取瓦片结果对象
+     * 获取瓦片数据对象
      * @param feas 瓦片麻点对象组
      * @param bounds 瓦片边界
      * */
@@ -148,14 +138,11 @@ public class TilesGenerator implements ITilesGenerator {
         return new Bounds(minx, miny, maxx, maxy);
     }
 
-    public IFeaturesQuery getFeatureQuery() {
-        return this.featureQuery;
-    }
-
-    public void setFeatureQuery(IFeaturesQuery featureQuery) {
-        this.featureQuery = featureQuery;
-    }
-
+    /**
+     * 生成图例
+     * @param attrParams
+     * @return
+     */
     public BufferedImage getLegend(AttrParams attrParams)
     {
         return null;
