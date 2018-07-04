@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>麻点图</title>
+
+
+    <link rel="stylesheet" href="../../lib/bootstrap/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../../lib/ol/ol.css">
+    <script type="text/javascript" src="../../lib/ol/ol-debug.js"></script>
+    <script type="text/javascript" src="../../lib/ol/plugins/Tianditu.js"></script>
+    <script type="text/javascript" src="../../lib/ol/plugins/pockwms.js"></script>
+
+    <script type="text/javascript" src="../../lib/jquery/jquery.js"></script>
+
+    <script type="text/javascript" src="../../lib/bootstrap/js/bootstrap.min.js"></script>
+
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0
+        }
+
+        .clearfix:after {
+
+            content: ".";
+
+            display: block;
+
+            height: 0;
+
+            clear: both;
+
+            visibility: hidden;
+
+        }
+    </style>
+
+</head>
+<body>
+<div id="map" style="height: 100%;margin:0;padding: 0">
+    <div id="mouse-position" style="position:absolute;right:10px;bottom: 20px;z-index: 9999"></div>
+
+    <div id="pock-legend" style="z-index: 9999;position: absolute;left:10px;bottom: 10px"></div>
+</div>
+
+<div id="panel-ctr" class="panel panel-primary"
+     style="position: absolute;z-index: 9999;right:10px; top:50px; width:300px;">
+    <div class="panel-heading">麻点图层操作</div>
+    <div class="panel-body">
+
+        <div class="clearfix">
+            <div class="radio col-sm-6">
+                <label>
+                    <input type="radio" name="ltype" value="1" checked>
+                    麻点图
+                </label>
+            </div>
+            <div class="radio col-sm-6" style="margin-top:10px;">
+                <label>
+                    <input type="radio" name="ltype" value="2">
+                    分段专题图
+                </label>
+            </div>
+        </div>
+
+        <div class="clearfix">
+            <div class="checkbox col-sm-12">
+                <label>
+                    <input type="checkbox"> 聚类
+                </label>
+            </div>
+        </div>
+
+        <div class="clearfix">
+            <div id="dsource" role="presentation" class="dropdown col-sm-5" style="margin:2px 0;">
+                <a id="drop4" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span value="TEST_POINTS">随机数据</span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="drop4">
+                    <li><a href="#" value="TEST_POINTS" def="测试-1">随机数据</a></li>
+                    <li><a href="#" value="WORLD_EARTHQUAKE" def="四川">地震数据</a></li>
+                </ul>
+            </div>
+
+            <div class="input-group input-group-sm col-sm-7">
+                <input id="inp-key" type="text" value="测试-1" class="form-control" placeholder="搜索...">
+                <span class="input-group-btn">
+                 <button id="btn-search" class="btn btn-default" type="button">查询</button>
+                </span>
+            </div>
+
+        </div>
+
+
+
+    </div>
+</div>
+
+
+</body>
+<script type="text/javascript" src="main.js"></script>
+</html>

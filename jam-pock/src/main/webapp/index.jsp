@@ -16,7 +16,7 @@
 	<script src="dfc-lib/jquery/jquery.min.js"></script>
 	<script src="dfc-lib/bootstrap/js/bootstrap.min.js"></script>
 	<script src="dfc-lib/common/json3.min.js"></script>
-	<script src="dfc-lib/openlayers/OpenLayers.js"> </script>
+	<script src="dfc-lib/openlayers/OpenLayers.debug.js"> </script>
 	<script src="map/js/tiledlayer.js"></script>
 	<script src="map/js/clusterquery.js"></script>
     <script src="map/js/clustertiles.js"></script>
@@ -24,6 +24,7 @@
     <script src="map/js/main.js"></script>
 </head>
 <body>
+
     <div class="wraper">
         <div class="clearfix">
             <div class="float-left ml10 mt10 fs16">

@@ -268,7 +268,7 @@ define(function (require, exports, module) {
         var projection = ol.proj.get(this.pro);
         var projectionExtent = projection.getExtent();
         var size = ol.extent.getWidth(projectionExtent) / 256;
-        var resolutions = new Array(14);
+        var resolutions = new Array(14);  //计算分辨率
         var matrixIds = new Array(14);
         for (var z = 0; z < 14; ++z) {
             resolutions[z] = size / Math.pow(2, z);

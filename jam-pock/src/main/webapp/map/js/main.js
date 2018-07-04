@@ -88,7 +88,8 @@
             cluster: usingCluster,// 设置为false时，对数据不做聚类，默认为true
 //maxClusterLevel:6,	// 当层级大于此设定值时，不再执行聚类
             gridSizeWidth: gsize,// 设置网格大小，执行基于网格的聚类算法；
-            gridSizeHeight: gsize
+            gridSizeHeight: gsize,
+            MAXCLUSTERLEVEL:5
         };
         var hightlisthIconStyle = {
             width: 14,
@@ -220,6 +221,14 @@
 
         var baseLayers = [new OpenLayers.Layer.WMTS(baseLayersConfig.TianDiTu.VEC),new OpenLayers.Layer.WMTS(baseLayersConfig.TianDiTu.CVA)
         ];
+
+        var url = 'http://t0.tianditu.com/DataServer?T=vec_c&x=${x}&y=${y}&l=${z}';
+        var xyzTdt = new OpenLayers.Layer.XYZ("test",url);
+        baseLayers = [xyzTdt];
+        // xyzTdt.getXYZ = function (bounds) {
+        //
+        // };
+
         map = new OpenLayers.Map({
             div: "map",
             layers: baseLayers,
@@ -237,6 +246,15 @@
                 lyr.clearMarkers();
             }
         });
+
+        map.events.register("zoomend",map,function (e) {
+             var resolution =  map.getResolution()
+            var level = map.getZoom();
+
+
+             console.log("level:" + level + "    res:" + resolution );
+        });
+
     }
 
     // 平面坐标下，验证点位精准度。【朝阳公园:(-76.3156847941524,28.30053387946)】

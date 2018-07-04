@@ -17,7 +17,7 @@ define(function (require, exports, module) {
 
     $(function () {
         $(window).resize(function () {
-            //resize();
+            resize();
         }).resize();
 
         Map.initMap();

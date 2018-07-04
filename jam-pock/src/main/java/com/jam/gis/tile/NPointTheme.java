@@ -3,7 +3,7 @@ package com.jam.gis.tile;
 
 public class NPointTheme extends NPoint {
 
-    private double kv;//行业大类编码首字母的ASCII编号
+    private double kv;
 
     /**
      * @param id 实体ID（建筑/单位id等）

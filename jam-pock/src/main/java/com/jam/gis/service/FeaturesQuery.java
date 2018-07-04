@@ -68,10 +68,10 @@ public class FeaturesQuery implements IFeaturesQuery {
         Object[] feas = null;//麻点对象（NPoint/NPointTheme）
         String themeType = attrParams.getThemeType();//专题类型
         //后台DB获取切片网格 所有麻点对象
-        if (themeType == null)
-            feas = this.simpleDao.getFeatrues(attrParams, queryBounds);//一般对象（NPoint）组
+        if (themeType != null && themeType.equalsIgnoreCase("RANGE"))
+            feas = this.simpleDao.getThemeFeatrues(attrParams, queryBounds);//专题麻点对象（NPointTheme）组
         else {
-            feas = this.simpleDao.getThemeFeatrues(attrParams, queryBounds);//行业大类分段专题麻点对象（NPointTheme）组
+            feas = this.simpleDao.getFeatrues(attrParams, queryBounds);//一般对象（NPoint）组
         }
         String dtype = attrParams.getDataType();//数据集类型
         if (dtype.equals("POINT")) {

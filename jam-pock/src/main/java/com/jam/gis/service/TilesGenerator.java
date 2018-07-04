@@ -65,7 +65,7 @@ public class TilesGenerator implements ITilesGenerator {
                     return this.featureQuery.getClusterFeatures(attrParams, queryBox, mapContent, tile, gridSize);
                 }
                 //等距聚集抽希不用（等比例聚类比较合理）
-                int distance = clusterSettings.distance; //distance 已经在 TilesGenerator里设置为0
+                int distance = clusterSettings.distance;
                 if (distance != 0) {
                     clusted = true;
                     Bounds queryBox = tile.getBbox();

@@ -13,7 +13,7 @@ public class Size {
         this.h = height;
     }
 
-    //像素转长度
+
     public double getDx(double resolution) {
         return this.w * resolution;
     }

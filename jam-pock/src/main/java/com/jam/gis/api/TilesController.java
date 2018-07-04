@@ -71,7 +71,9 @@ public class TilesController {
         boolean isCluster = Boolean.parseBoolean(usingCluster);//是否叠加聚集图
         int level = Integer.parseInt(strLevel);//当前地图比例尺等级
         int maxClusterLevel = Integer.parseInt(strMaxClusterLevel);//切片网格聚集抽希最大比例等级
-        int distance = 0;//切片网格等距聚集抽希距离
+
+        int distance = 0;//切片网格等距聚集抽希距离   //////////////////////////////////////////距离抽稀
+
         //切片网格大小（像素）
         int gsizeHeight = 0;
         int gsizeWidth = 0;
@@ -94,7 +96,7 @@ public class TilesController {
 
         MapContent mapContent = new MapContent();
         mapContent.setMaxExtent(new Bounds(strMaxExtent));//地图最大边界
-        mapContent.setResolution(resolution);//屏幕分辨率
+        mapContent.setResolution(resolution);                                        //分辨率
 
         Size tileSize = new Size();
         int width =  Integer.parseInt(strWidth);
