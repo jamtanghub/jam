@@ -116,7 +116,7 @@ SuperMap.DFC.ClusterTiles.prototype.drawHighlightMarker = function(evt){
 					this.highlightPockingLayer.div.style.width = 0;
 					this.addLayer(this.highlightPockingLayer);
 				}
-				var size = new OpenLayers.Size(hIconW,hIconH);
+					var size = new OpenLayers.Size(hIconW,hIconH);
 				var offset = new OpenLayers.Pixel(hIconOffX, hIconOffY+1);
 				var icon = new OpenLayers.Icon(highlightIconUrl, size, offset);
 				icon.imageDiv.style.cursor = "pointer";

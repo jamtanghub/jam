@@ -8,6 +8,7 @@
     var themeTileUrl = "/pock/service/pock/theme/img";
 
     var map= null;
+    var hlLayer = null;
 
     var proCode = "EPSG:4326";
     var projection = new ol.proj.Projection({
@@ -85,13 +86,123 @@
         map.controls.push(mousePositionControl);
 
 
-        map.on("moveend",function () {
-            // var l = map.getZoom();
-            // var r = map.getResolution();
-            //
-            // console.log("zoom:" + l + " res:" + r);
-        });
 
+        var hlSource = new ol.source.Vector({
+            features: []
+        });
+        //矢量图层  用于显示高亮麻点
+        hlLayer = new ol.layer.Vector({
+            zindex: 10,
+            source:hlSource
+        });
+        hlLayer.setZIndex(1000);
+
+        map.addLayer(hlLayer);
+
+        //弹出气泡
+        var element = document.getElementById('popup');
+        var popup = new ol.Overlay({
+            element: element,
+            positioning: 'bottom-center',
+            stopEvent: false,
+            offset: [0, -5]
+        });
+        map.addOverlay(popup);
+
+
+
+       map.on("click",function (evt) {
+           var feature = map.forEachFeatureAtPixel(evt.pixel,function (feature) {
+               return feature;
+           });
+           if (feature) {
+               var coordinates = feature.getGeometry().getCoordinates();
+               popup.setPosition(coordinates);
+               $(element).popover({
+                   placement: 'top',
+                   html: true,
+                   content: feature.get('name')
+               });
+               $(element).popover('show');
+           } else {
+               $(element).popover('destroy');
+           }
+
+       });
+
+
+        map.on("pointermove",function (evt) {
+            var coordinate = evt.coordinate;
+            var pixel = evt.pixel;
+
+            var hdms = ol.coordinate.toStringHDMS(coordinate);
+
+
+            var z = map.getView().getZoom();
+            var currFlag = "z_" + z;
+            if(!map.pockfea){
+                return ;
+            }
+            var features = map.pockfea[currFlag];
+            if(!features || features.length==0){
+                return ;
+            }
+
+            var config = this.tileMarkerConfig;
+            var iconStyle = config.iconStyle;
+            if(iconStyle === undefined || iconStyle===null) return;
+            var iconW = iconStyle.iconWidth;
+            var iconH = iconStyle.iconHeight;
+            var iconOffX = iconStyle.iconOffsetX;
+            var iconOffY = iconStyle.iconOffsetY;
+            var hIconStyle = config.hIconStyle;
+            var hIconW = hIconStyle.width;
+            var hIconH = hIconStyle.height;
+            var hIconOffX = hIconStyle.offsetX;
+            var hIconOffY = hIconStyle.offsetY;
+            var highlightIconUrl = hIconStyle.url;
+
+
+            var boxLeft = 0, boxRight = 0, boxBottom = 0, boxTop = 0;
+            if(boxLeft <= pixel[0] && pixel[0] < boxRight && boxBottom < pixel[1] && pixel[1] <= boxTop) return;
+            for(var i =0;i<features.length;i++){
+                var fea = features[i];
+                var feaPx = map.getPixelFromCoordinate([fea.x,fea.y]);
+
+                boxLeft = feaPx[0] + iconOffX;
+                boxRight = feaPx[0] + iconW + iconOffX;
+                boxTop = feaPx[1] + iconH + iconOffY;
+                boxBottom = feaPx[1] + iconOffY;
+
+                // console.log("box:" + boxLeft + "," + boxBottom + "," + boxRight + "," + boxTop);
+
+                var inx = boxLeft <= pixel[0] && pixel[0] < boxRight;
+                var iny = boxBottom < pixel[1] && pixel[1] <= boxTop;
+
+                var hlSource  = hlLayer.getSource();
+                hlSource.clear();
+                if(inx && iny){
+                    var hliconStyle = new ol.style.Style({
+                        image: new ol.style.Icon(({
+                            src: '../../assets/image/markerblue.png',
+                            offset:[-6,-4],
+                            size:[hIconW*2,hIconH*2]
+                        }))
+                    });
+
+                    var f = new ol.Feature({
+                        geometry: new ol.geom.Point([fea.x, fea.y]),
+                        name:fea.name||""
+                    });
+                    f.setStyle(hliconStyle);
+                    hlSource.addFeature(f);
+                    break;
+                }
+            }
+
+
+            // var mouse = this.events.getMousePosition(evt);
+        });
     };
 
 
@@ -144,34 +255,43 @@
 
         var pockSource =  new ol.source.PockWMS(options);
         pockSource.on("tileloadend",function (evt) {
-            map.tileMarkerConfig = {};
-            map.pockfea = {};
+            if(!map.tileMarkerConfig){
+                map.tileMarkerConfig = {};
+            }
+
+            if(!map.pockfea){
+                map.pockfea = {};
+            }
+
             var tile = evt.tile;
             var strUrl = tile.getKey("src").replace("img","feature");
             $.ajax({
                 url: strUrl, type: "get", dataType:"json",
                 success: function(result, status, detail){
+                    var tileCoord = tile.tileCoord;
+                    var z = tileCoord[0];
+                    var currFlag = "z_" + z;
+                    for(var k in map.pockfea){
+                        if(k != currFlag){
+                            delete map.pockfea[k];
+                        }
+                    }
 
                     if(map.tileMarkerConfig!==undefined && map.tileMarkerConfig!==null){
                         if(result.style) map.tileMarkerConfig['iconStyle']  = result.style.iconStyle;
                     }
 
-
-                    var tileCoord = tile.tileCoord;
-                    var z = tileCoord[0];
-                    var currFlag = "z_" + z;
-
-                    for(var k in map.pockfea){
-                        if(k != currFlag){
-                          delete map.pockfea[k];
+                    if(result.data!=null && result.data instanceof Array && result.data.length>0){
+                        if(!map.pockfea[currFlag]){
+                            map.pockfea[currFlag] = result.data;
+                        }else{
+                            var old = map.pockfea[currFlag];
+                            map.pockfea[currFlag] =  old.concat(result.data);
                         }
                     }
 
-                    if(!map.pockfea[currFlag]){
-                        map.pockfea[currFlag] = result.data;
-                    }else{
-                        map.pockfea[currFlag].concat(result.data);
-                    }
+
+
 
                     // var image = tile.getImage();
                     // if(status=="success"){
@@ -200,67 +320,7 @@
 
         map.addLayer(layer);
         
-        var view = map.getView();
-        map.on("pointermove",function (evt) {
-            var coordinate = evt.coordinate;
-            var pixel = evt.pixel;
 
-            var hdms = ol.coordinate.toStringHDMS(coordinate);
-
-
-            var z = map.getView().getZoom();
-            var currFlag = "z_" + z;
-            if(!map.pockfea){
-                return ;
-            }
-            var features = map.pockfea[currFlag];
-            if(!features || features.length==0){
-                return ;
-            }
-
-            var config = this.tileMarkerConfig;
-            var iconStyle = config.iconStyle;
-            if(iconStyle === undefined || iconStyle===null) return;
-            var iconW = iconStyle.iconWidth;
-            var iconH = iconStyle.iconHeight;
-            var iconOffX = iconStyle.iconOffsetX;
-            var iconOffY = iconStyle.iconOffsetY;
-            var hIconStyle = config.hIconStyle;
-            var hIconW = hIconStyle.width;
-            var hIconH = hIconStyle.height;
-            var hIconOffX = hIconStyle.offsetX;
-            var hIconOffY = hIconStyle.offsetY;
-            var highlightIconUrl = hIconStyle.url;
-
-
-            var boxLeft = 0, boxRight = 0, boxBottom = 0, boxTop = 0;
-            if(boxLeft <= pixel[0] && pixel[0] < boxRight && boxBottom < pixel[1] && pixel[1] <= boxTop) return;
-            for(var i =0;i<features.length;i++){
-                var fea = features[i];
-                var feaPx = map.getPixelFromCoordinate([fea.x,fea.y]);//  this.getPixelFromLonLat(new OpenLayers.LonLat(pnt.x,pnt.y));
-                boxLeft = feaPx[0] + iconOffX;
-                boxRight = feaPx[0] + iconW + iconOffX;
-                boxTop = feaPx[1] + iconH + iconOffY;
-                boxBottom = feaPx[1] + iconOffY;
-
-                // console.log("box:" + boxLeft + "," + boxBottom + "," + boxRight + "," + boxTop);
-
-                var inx = boxLeft <= pixel[0] && pixel[0] < boxRight;
-                var iny = boxBottom < pixel[1] && pixel[1] <= boxTop;
-
-                if(inx && iny){
-                    console.log(fea.name);
-                    break;
-                }else{
-                    if(this.highlightPockingLayer){
-                        this.highlightPockingLayer.clearMarkers();
-                    }
-                }
-            }
-
-
-            // var mouse = this.events.getMousePosition(evt);
-        });
     };
 
 
