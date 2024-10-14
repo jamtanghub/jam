@@ -186,14 +186,14 @@
             TianDiTu: {
                 VEC: {
                     name: "tianditu-vec",
-                    url: ["http://t0.tianditu.cn/vec_c/wmts",
-                        "http://t1.tianditu.cn/vec_c/wmts",
-                        "http://t2.tianditu.cn/vec_c/wmts",
-                        "http://t3.tianditu.cn/vec_c/wmts",
-                        "http://t4.tianditu.cn/vec_c/wmts",
-                        "http://t5.tianditu.cn/vec_c/wmts",
-                        "http://t6.tianditu.cn/vec_c/wmts",
-                        "http://t7.tianditu.cn/vec_c/wmts"
+                    url: ["http://t0.tianditu.gov.cn/vec_c/wmts?tk=706c9c914f9583f9ea9e8acc7f7c0a31",
+                        "http://t1.tianditu.gov.cn/vec_c/wmts?tk=706c9c914f9583f9ea9e8acc7f7c0a31",
+                        "http://t2.tianditu.gov.cn/vec_c/wmts?tk=706c9c914f9583f9ea9e8acc7f7c0a31",
+                        "http://t3.tianditu.gov.cn/vec_c/wmts?tk=706c9c914f9583f9ea9e8acc7f7c0a31",
+                        "http://t4.tianditu.gov.cn/vec_c/wmts?tk=706c9c914f9583f9ea9e8acc7f7c0a31",
+                        "http://t5.tianditu.gov.cn/vec_c/wmts?tk=706c9c914f9583f9ea9e8acc7f7c0a31",
+                        "http://t6.tianditu.gov.cn/vec_c/wmts?tk=706c9c914f9583f9ea9e8acc7f7c0a31",
+                        "http://t7.tianditu.gov.cn/vec_c/wmts?tk=706c9c914f9583f9ea9e8acc7f7c0a31"
                     ],
                     layer: "vec",
                     matrixSet: "c",
@@ -202,14 +202,14 @@
                 },
                 CVA: {
                     name: "tianditu-cva",
-                    url: ["http://t0.tianditu.cn/cva_c/wmts",
-                        "http://t1.tianditu.cn/cva_c/wmts",
-                        "http://t2.tianditu.cn/cva_c/wmts",
-                        "http://t3.tianditu.cn/cva_c/wmts",
-                        "http://t4.tianditu.cn/cva_c/wmts",
-                        "http://t5.tianditu.cn/cva_c/wmts",
-                        "http://t6.tianditu.cn/cva_c/wmts",
-                        "http://t7.tianditu.cn/cva_c/wmts"
+                    url: ["http://t0.tianditu.gov.cn/cva_c/wmts?tk=706c9c914f9583f9ea9e8acc7f7c0a31",
+                        "http://t1.tianditu.gov.cn/cva_c/wmts?tk=706c9c914f9583f9ea9e8acc7f7c0a31",
+                        "http://t2.tianditu.gov.cn/cva_c/wmts?tk=706c9c914f9583f9ea9e8acc7f7c0a31",
+                        "http://t3.tianditu.gov.cn/cva_c/wmts?tk=706c9c914f9583f9ea9e8acc7f7c0a31",
+                        "http://t4.tianditu.gov.cn/cva_c/wmts?tk=706c9c914f9583f9ea9e8acc7f7c0a31",
+                        "http://t5.tianditu.gov.cn/cva_c/wmts?tk=706c9c914f9583f9ea9e8acc7f7c0a31",
+                        "http://t6.tianditu.gov.cn/cva_c/wmts?tk=706c9c914f9583f9ea9e8acc7f7c0a31",
+                        "http://t7.tianditu.gov.cn/cva_c/wmts?tk=706c9c914f9583f9ea9e8acc7f7c0a31"
                     ],
                     layer: "cva",
                     matrixSet: "c",
@@ -222,9 +222,9 @@
         var baseLayers = [new OpenLayers.Layer.WMTS(baseLayersConfig.TianDiTu.VEC),new OpenLayers.Layer.WMTS(baseLayersConfig.TianDiTu.CVA)
         ];
 
-        var url = 'http://t0.tianditu.com/DataServer?T=vec_c&x=${x}&y=${y}&l=${z}';
-        var xyzTdt = new OpenLayers.Layer.XYZ("test",url);
-        baseLayers = [xyzTdt];
+        // var url = 'http://t0.tianditu.com/DataServer?T=vec_c&x=${x}&y=${y}&l=${z}';
+        // var xyzTdt = new OpenLayers.Layer.XYZ("test",url);
+        // baseLayers = [xyzTdt];
         // xyzTdt.getXYZ = function (bounds) {
         //
         // };
